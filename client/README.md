@@ -2,7 +2,7 @@
 
 A full-stack application that monitors and visualizes system performance (CPU, RAM, and Disk Usage) in real-time. The system consists of a Python agent gathering metrics, a Flask API processing the data, and a React frontend visualizing the trends.
 
-![Demo Preview](demo.gif) 
+![[Demo Preview](demo.gif) ](https://github.com/user-attachments/assets/0bdcfff6-d797-4cb5-844a-b43fe85eeb99)
 ## 🛠 Tech Stack
 * **Frontend:** React (Vite), Recharts, Axios
 * **Backend:** Python, Flask, Flask-CORS
@@ -11,7 +11,11 @@ A full-stack application that monitors and visualizes system performance (CPU, R
 
 ## 🌟 Features
 * **Real-time Data Collection:** A Python agent runs locally to harvest system metrics every 10 seconds.
-* **Live Visualization:** Interactive graphs showing historical trends for CPU, RAM, and Disk usage.
+* **Live Visualization:** Interactive graphs showing hi
+
+
+
+storical trends for CPU, RAM, and Disk usage.
 * **Robust Error Handling:** Handles server downtime and network issues gracefully.
 
 ## 🚀 How to Run Locally
