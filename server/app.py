@@ -53,6 +53,21 @@ def get_metrics():
         #konvertera till lista och vänd håll
         data = [dict(row) for row in rows]
         return jsonify(data[::-1])
+    
+@app.route('/api/metrics', methods=['DELETE'])
+def clear_metrics():
+    """Raderar all data från SQLite-databasen"""
+    try:
+        with sqlite3.connect(DB_FILE) as conn:
+            cursor = conn.cursor()
+            # SQL-kommandot för att tömma tabellen
+            cursor.execute('DELETE FROM system_metrics')
+            conn.commit() #Sparar ändringen
+        print("🧹 Databasen rensad!")
+        return jsonify({"message": "All data cleared from DB"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
 
 if __name__ == '__main__':
     init_db() 

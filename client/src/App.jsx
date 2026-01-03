@@ -5,7 +5,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 function App() {
   const [metrics, setMetrics] = useState([])
 
-  //hämta data
   const fetchMetrics = async () => {
     try {
       const response = await axios.get('http://localhost:5001/api/metrics')
@@ -15,7 +14,15 @@ function App() {
     }
   }
 
-  //Körs när sidan laddas och sedan var 5e sekund
+  const clearHistory = async () => {
+    try {
+      await axios.delete('http://localhost:5001/api/metrics')
+      setMetrics([]) 
+    } catch (error) {
+      console.error("Kunde inte rensa historik:", error)
+    }
+  }
+
   useEffect(() => {
     fetchMetrics()
     const interval = setInterval(fetchMetrics, 5000)
@@ -26,13 +33,16 @@ function App() {
     <div style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
       <h1>System Monitor</h1>
       
-      <div style={{ width: '100%', height: 400, marginTop: '2rem' }}>
-        <h3>CPU & RAM Usage (%)</h3>
+      {/* 1. Flytta rubriken hit, utanför diven med fast höjd */}
+      <h3 style={{ marginTop: '2rem' }}>CPU & RAM Usage (%)</h3>
+
+      {/* 2. Denna div ska BARA innehålla grafen för att höjden ska bli rätt */}
+      <div style={{ width: '100%', height: 400, marginBottom: '20px' }}>
         {metrics.length > 0 ? (
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={metrics}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="created_at" tick={false} /> {}
+              <XAxis dataKey="created_at" tick={false} />
               <YAxis domain={[0, 100]} />
               <Tooltip />
               <Legend />
@@ -46,10 +56,27 @@ function App() {
         )}
       </div>
 
+      {/* 3. Knappen fungerar nu eftersom grafen inte täcker den */}
+      <button 
+        onClick={clearHistory}
+        style={{
+          padding: '10px 20px',
+          backgroundColor: '#ff4d4f',
+          color: 'white',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer',
+          fontWeight: 'bold',
+          marginBottom: '20px' // Lite luft under knappen också
+        }}
+      >
+        🗑️ Rensa Historik
+      </button>
+
       <div style={{ marginTop: '20px' }}>
         <h3>Senaste mätvärdena:</h3>
         {metrics.slice(-3).reverse().map((m) => (
-          <div key={m.id} style={{ borderBottom: '1px solid #ddd', padding: '5px' }}>
+          <div key={m.id || m.timestamp || Math.random()} style={{ borderBottom: '1px solid #ddd', padding: '5px' }}>
             <strong>{m.created_at}:</strong> CPU: {m.cpu_usage}% | RAM: {m.ram_usage}% | Disk: {m.disk_usage}%
           </div>
         ))}

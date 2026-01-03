@@ -66,7 +66,7 @@ def run_agent():
         except Exception as e:
             print(f"Ett oväntat fel uppstod: {e}")
 
-        # Vänta innan nästa mätning
+        #Vänta innan nästa mätning
         time.sleep(INTERVAL)
 
 if __name__ == "__main__":

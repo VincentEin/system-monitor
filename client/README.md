@@ -1,16 +1,36 @@
-# React + Vite
+# 🚀 Real-time Server Monitor Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack application that monitors and visualizes system performance (CPU, RAM, and Disk Usage) in real-time. The system consists of a Python agent gathering metrics, a Flask API processing the data, and a React frontend visualizing the trends.
 
-Currently, two official plugins are available:
+![Demo Preview](demo.gif) 
+## 🛠 Tech Stack
+* **Frontend:** React (Vite), Recharts, Axios
+* **Backend:** Python, Flask, Flask-CORS
+* **Agent:** Python, Psutil
+* **Architecture:** REST API, Polling
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌟 Features
+* **Real-time Data Collection:** A Python agent runs locally to harvest system metrics every 10 seconds.
+* **Live Visualization:** Interactive graphs showing historical trends for CPU, RAM, and Disk usage.
+* **Robust Error Handling:** Handles server downtime and network issues gracefully.
 
-## React Compiler
+## 🚀 How to Run Locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Start the Server (Backend)
+Navigate to the server directory and start the Flask app:
+```bash
+cd server
+pip install flask flask-cors
+python app.py
 
-## Expanding the ESLint configuration
+2. Start the Dashboard (Frontend)
+Open a new terminal, navigate to the client, and start React:
+cd client
+npm install
+npm run dev
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+3. Start the Agent
+Open a third terminal and run the monitoring agent:
+cd agent
+pip install psutil requests
+python agent.py
