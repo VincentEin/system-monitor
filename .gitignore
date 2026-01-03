@@ -1,0 +1,20 @@
+# Mac systemfiler
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+
+# Node / React
+node_modules/
+dist/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Loggar och databaser (om du har några lokala)
+*.log
+*.sqlite3
